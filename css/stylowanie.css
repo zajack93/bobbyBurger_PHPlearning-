@@ -1,0 +1,25 @@
+body {
+	background-color: purple;
+	color: rgba(01,01,01,0.5);
+}
+
+th {
+	text-align: center;
+	padding: 20px;
+}
+
+td {
+	text-align: left;
+	padding-right: 20px;
+}
+
+tr:first-child th {
+	border-bottom: 1px solid red;
+}
+
+table {
+	border-spacing: 0;
+}
+div {
+	color: red;
+}

@@ -1,0 +1,25 @@
+body {
+	background-color: black;
+	color: white;
+}
+
+th {
+	text-align: center;
+	padding: 10px;
+}
+td {
+	text-align: left;
+	padding-right: 10px;
+}
+.il {
+	text-align: center;
+	padding-right: 10px;
+}
+
+tr:last-child td {
+	border-top: 1px solid red;
+}
+
+table {
+	border-spacing: 0;
+}
