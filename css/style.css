@@ -23,3 +23,14 @@ tr:last-child td {
 table {
 	border-spacing: 0;
 }
+
+footer {
+	position: absolute;
+	bottom: 0;
+	left: -10px;
+	height: 15px;
+	width: 100%;
+	padding: 15px;
+	background-color: #93e78f;
+	color: blue;
+}

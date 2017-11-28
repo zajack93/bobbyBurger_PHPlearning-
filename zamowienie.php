@@ -1,13 +1,24 @@
 <?php  
+//magiczne stałe - informuje interpreter PHP o ścieżce, gdzie ma szukać dołączanych plików
+set_include_path(get_include_path().PATH_SEPARATOR.__DIR__.DIRECTORY_SEPARATOR."narzedzia");
+echo get_include_path()."<br>";
+
 require_once 'class.zamowienie.php';
 require_once 'class.danie.php';
 require_once 'class.pozycjazamowienia.php';
+require_once 'funkcje.php';
+require_once 'class.daniemenu.php';
+
+echo "Twoja wersja PHP to ".PHP_VERSION."<br>";
+echo "Pracujesz w systemie ".PHP_OS."<br>";
+
 
 $danie = new Danie("burger", 12.5);
 echo "{$danie->getNazwa()} ...<br>";
 
-$pozycja = new PozycjaZamowienia("cieciorex", 15.20, 3);
+$pozycja = new PozycjaZamowienia("cieciorex", 15.20, 8);
 echo "{$pozycja->getNazwa()} ... <br>";
+echo "cena: {$pozycja->getCena()} ... <br>";
 
 
 $biezaceZamowienie = new Zamowienie();
@@ -41,9 +52,13 @@ $kod = <<<'EOC'
 </ul>
 	
 </body>
+
+
 </html>
 
 EOC;
+
+
 
 echo $kod;
 ?>

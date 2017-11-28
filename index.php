@@ -1,7 +1,21 @@
 <?php
-require "funkcje.php";		//import pliku funkcje.php posiadajacy wywolywane funkcje
+require "funkcje.php";		//import pliku funkcje.php z klasa posiadajacą wywolywane funkcje - metody
+require "class.zamowienie.php"; 
+
+define('APLIKACJA', 'BobbyBurger');
+
+$dataStart = strtotime('2017-11-01');
+$dataKoniec = strtotime('2017-11-30');
+
+if (($dataStart < time()) && ($dataKoniec > time())) {
+	Zamowienie::$cenaKm =1.00;
+}
+
+$rok = date('Y');
+$copyright = APLIKACJA.'&copy;'.$rok;
 
 //zamowienia
+
 
 $zamowienie = array(
  	1 => array(
@@ -38,7 +52,7 @@ $liczbaRazem =0;
 $koszt =0;
 
 foreach ($zamowienie as $indeks => $danie) {
-	$zamowienieKod .= stworzWiersz(
+	$zamowienieKod .= Narzedzia::stworzWiersz(
 		$danie['nazwa'], 
 		$danie['cena'], 
 		$danie['liczba']
@@ -82,7 +96,7 @@ $koszt += ($odleglosc * $cenaKm);
 $kosztBrutto = $koszt;
 $koszt *= 1- $rabat;
 
-echo formatujKwote($koszt), " za zamowienie ";
+echo Narzedzia::formatujKwote($koszt), " za zamowienie ";
 
 	$kosztTransportu = $odleglosc * $cenaKm;
 
@@ -128,11 +142,11 @@ else {
 		<!-- wywolywana jest z pliku funkcje.php za pomoca require "funckje.php" na poczatku skryptu -->
 		<?php 
 			echo $zamowienieKod;
-			echo stworzWiersz("cheatMonday - BBurger", 27, 1);
+			echo Narzedzia::stworzWiersz("cheatMonday - BBurger", 27, 1);
 
-			echo stworzWiersz("transport", $kosztTransportu, "-");
-			echo stworzWiersz("rabat", (-1 * $kosztBrutto * $rabat), "-");
-			echo stworzWiersz("Do zapłaty: ", $koszt, "-");
+			echo Narzedzia::stworzWiersz("transport", $kosztTransportu, "-");
+			echo Narzedzia::stworzWiersz("rabat", (-1 * $kosztBrutto * $rabat), "-");
+			echo Narzedzia::stworzWiersz("Do zapłaty: ", $koszt, "-");
 
 		 ?>
 		
@@ -141,7 +155,9 @@ else {
 
 	<?php echo $infoPromocja; ?>
 
-
+	<footer>
+	<?php echo $copyright; ?>
+	</footer>
  
  </body>
  </html>

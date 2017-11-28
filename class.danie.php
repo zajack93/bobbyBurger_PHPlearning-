@@ -4,19 +4,21 @@
 /**
 * 
 */
-class Danie {
+abstract class Danie {
 
 	private $_nazwa;
-	private $_cena;
+	protected $_cena;
+	protected $_id;
 
 	/*
 	* konstruktor klasy
 	*/
 
-	public function __construct($nazwa, $cena)
+	public function __construct($nazwa, $cena, $id)
 	{
 		$this->_nazwa = $nazwa;
 		$this->_cena = $cena;
+		$this->_id = $id;
 
 		echo "Tworzę instancję obiektu... <br>";
 	}
@@ -29,6 +31,11 @@ class Danie {
 
 		echo "Niszczę instancję obiektu stworzoną w konstruktorze... <br>";
 	}
+
+	abstract function generujKod(); 
+	/*
+	* wymusza deifinicjee funkcje generujKod w każdej nieabstrakcyjnej klasie pochodnej klasy Danie
+	**/ 
 
 	/*
 	* pobiera i Zwraca prywatna wlasciwosc _nazwa
@@ -52,6 +59,17 @@ class Danie {
 	
 	public function setCena($cena) {
 		$this->_cena = $cena;
+	}
+
+	/*zwraca prywatna wartosc id*/
+	public function getId () {
+		return $this->_id;
+	}
+
+	/*ustawia prywatna wartosc id*/
+	public function setId($id) {
+		$this->_id = $id;
+
 	}
 	
 }

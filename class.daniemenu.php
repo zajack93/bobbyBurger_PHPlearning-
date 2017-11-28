@@ -10,9 +10,13 @@ class DanieMenu extends Danie
 
 /*konstruktor klasy */
 
-	function __construct($nazwa, $cena)
+	function __construct($nazwa, $cena, $id)
 	{
-		parent::__construct($nazwa, $cena);
+		parent::__construct($nazwa, $cena, $id);
+	}
+
+	public function generujKod(){
+		//
 	}
 }
  ?>

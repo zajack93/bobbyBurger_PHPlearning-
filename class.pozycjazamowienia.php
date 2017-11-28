@@ -3,6 +3,7 @@
 * Klasa pozycji zamowienia
 */
 
+require 'funckje.php';
 
 class PozycjaZamowienia extends Danie
 {
@@ -17,8 +18,30 @@ class PozycjaZamowienia extends Danie
 		$this->_liczba = $liczba;
 	}
 
+	/*
+	* generuje kod HTML
+	*
+	*/
+
+	public function generujKod() {
+		$kod = Narzedzia::stworzWiersz(
+			$this->getNazwa(), 
+			$this->getCenaJedn(),
+			$this->getLiczba()
+
+			);
+		return $kod;
+	}
+
+
+
+
+	/* 
+	* oblicza cenę
+	*/
+
 	public function getCena() {
-		return $this->getCena() * $this->_liczba;
+		return $this->_cena * $this->_liczba;
 
 		//return $this->_cena * $this->_liczba; dla protected _cena w klasie Danie 
 	}
