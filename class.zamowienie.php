@@ -26,7 +26,7 @@ class Zamowienie {
 
 	public function obliczTransport() {
 	//	$cenaKm =2; //cena za km
-		return $this->odleglosc * self::CENA_KM;
+		return $this->odleglosc * self::$cenaKm; 
 	}
 
 	/***
@@ -132,13 +132,13 @@ class Zamowienie {
 	// generuje kod html zamowienia
 	// *********
 
-	public function generujKod() {
+	public function generujKod($pozycja) {
 		
 		$zamowienieKod = '';
 
 
 		foreach ($this->_pozycje as $pozycja) {
-			$zamowienieKod .= $pozycja->generujKod('pln');
+			$zamowienieKod .= $pozycja->generujKod(6,'pln');
 				
 			}
 			//transport
@@ -151,8 +151,10 @@ class Zamowienie {
 
 			//suma
 			$zamowienieKod .= Narzedzia::stworzWiersz("Do zaplaty", $this->doZaplaty());
+			$pozycja = $zamowienieKod;
+			echo $pozycja;
 
-			return zamowienieKod;
+			return $pozycja;
 	}
 
 

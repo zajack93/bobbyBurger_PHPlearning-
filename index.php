@@ -1,6 +1,35 @@
 <?php
-require "funkcje.php";		//import pliku funkcje.php z klasa posiadajacą wywolywane funkcje - metody
-require "class.zamowienie.php"; 
+require_once 'autoladowanie.php';
+
+echo "<pre>";
+echo print_r($_GET);
+echo "</pre>";
+
+// require_once 'interface.mozewyswietlac.php';
+
+// require_once 'funkcje.php';		//import pliku funkcje.php z klasa posiadajacą //wywolywane funkcje - metody
+// require_once 'class.zamowienie.php';
+// require_once 'class.danie.php';
+// require_once 'class.pozycjazamowienia.php';
+// require_once 'class.daniemenu.php';
+
+//zamowienie
+
+$zamowienie = new Zamowienie();
+
+if ($_GET['zamowienie'] == 'Wyslij') {
+	$pozycje = $_GET['pozycja'];
+	if (is_array($pozycje)) {
+		foreach ($pozycje as $id => $liczbaPorcji) {
+			if ($liczbaPorcji > 0) {
+				$pozycja = Baza::pozycjaZamowienia($id, $liczbaPorcji);
+				$zamowienie->dodajPozycje($pozycja);
+				$zamowienie->generujKod($pozycja);
+			} 
+		}
+	}
+}
+
 
 define('APLIKACJA', 'BobbyBurger');
 
@@ -16,8 +45,22 @@ $copyright = APLIKACJA.'&copy;'.$rok;
 
 //zamowienia
 
+// $danie1 = new PozycjaZamowienia("burger", 12.5, 2, 10);
+// echo "{$danie1->getNazwa()} ...<br>";
 
-$zamowienie = array(
+// $danie2 = new PozycjaZamowienia("cieciorex", 15.20, 8, 11);
+// echo "{$danie2->getNazwa()} ... <br>";
+// echo "cena: {$danie2->getCena()} ... <br>";
+
+
+// $biezaceZamowienie = new Zamowienie();
+// $biezaceZamowienie->dodajPozycje($danie1);
+// $biezaceZamowienie->dodajPozycje($danie2);
+
+// $liczbaDanRazem = $biezaceZamowienie->getLiczbaRazem();
+
+
+/*$zamowienie = array(
  	1 => array(
  		"nazwa" => "burger Janush",
 		"cena" => 5.9,
@@ -30,7 +73,7 @@ $zamowienie = array(
 		"liczba" => 1,  	//liczba porcji
 		"id" => 2 
 		)
-	);
+	);*/
 
 // $danie1 = array (
 // 	"nazwa" => "burger Janush",
@@ -48,10 +91,10 @@ $zamowienie = array(
 
 $zamowienieKod = '';
 
-$liczbaRazem =0;
-$koszt =0;
+$liczbaRazem =$zamowienie->getLiczbaRazem();
+$koszt = $zamowienie->doZaplaty();
 
-foreach ($zamowienie as $indeks => $danie) {
+/*foreach ($zamowienie as $indeks => $danie) {
 	$zamowienieKod .= Narzedzia::stworzWiersz(
 		$danie['nazwa'], 
 		$danie['cena'], 
@@ -59,20 +102,20 @@ foreach ($zamowienie as $indeks => $danie) {
 		); 
 	$liczbaRazem +=$danie['liczba'];		//suma porcji do zamowien
 	$koszt += $danie['liczba']*$danie['cena'];
-}
+}*/
 
 //$liczbaRazem = $liczba1 + $liczba2;   //suma porcji do zamowien
 
 //transport 
 
-$odleglosc = 1.12;
-$cenaKm = 2;
+// $odleglosc = 1.12;
+// $cenaKm = 2;
 
 //jeśli zamowie danie z id1 i id2 to promocja transport gratis
-if (array_key_exists(2, $zamowienie) && array_key_exists(1, $zamowienie)) {
-	// transport gratis
-	$cenaKm = 0;
-}
+// if (array_key_exists(2, $zamowienie) && array_key_exists(1, $zamowienie)) {
+// 	// transport gratis
+// 	$cenaKm = 0;
+// }
 
 
 
@@ -81,20 +124,21 @@ switch ($liczbaRazem) {
 	case 0:
 	case 1: 
 	case 2:
-		$rabat = 0; 
+		$zamowienie->setRabat(0); 
 		break;
 	case 3:
-		$rabat =0.1;
+		$zamowienie->setRabat(0.1);
 		break;
 	default:
-		$rabat = 0.2;
+		$zamowienie->setRabat(0.2);
 		break;
 }
 
+
 // odlicza rabat dla >=3 porcji
-$koszt += ($odleglosc * $cenaKm); 
-$kosztBrutto = $koszt;
-$koszt *= 1- $rabat;
+// $koszt += ($odleglosc * $cenaKm); 
+// $kosztBrutto = $koszt;
+// $koszt *= 1- $rabat;
 
 echo Narzedzia::formatujKwote($koszt), " za zamowienie ";
 

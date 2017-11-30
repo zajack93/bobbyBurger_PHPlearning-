@@ -3,7 +3,7 @@
 * Klasa pozycji zamowienia
 */
 
-require 'funckje.php';
+//require 'funkcje.php';
 
 class PozycjaZamowienia extends Danie
 {
@@ -12,9 +12,9 @@ class PozycjaZamowienia extends Danie
 
 	/* konstruktor klasy */
 
-	function __construct($nazwa, $cena, $liczba)
+	function __construct($nazwa, $cena, $liczba, $id)
 	{
-		parent::__construct($nazwa, $cena);
+		parent::__construct($nazwa, $cena, $id);
 		$this->_liczba = $liczba;
 	}
 
@@ -23,11 +23,12 @@ class PozycjaZamowienia extends Danie
 	*
 	*/
 
-	public function generujKod() {
+	public function generujKod($symbol) {
 		$kod = Narzedzia::stworzWiersz(
 			$this->getNazwa(), 
 			$this->getCenaJedn(),
-			$this->getLiczba()
+			$this->getLiczba(),
+			$symbol
 
 			);
 		return $kod;

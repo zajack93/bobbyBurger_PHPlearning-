@@ -2,8 +2,11 @@
 
 /**
 * Klasa danie w menu
+* 
+* implementuje interfejs MozeWyswietac
+* wiec jej pelna definicja musi sie znaleźć w klasie DanieMenu
 */
-class DanieMenu extends Danie
+class DanieMenu extends Danie implements MozeWyswietlac
 {
 	/* wlasciwosci klasy*/ 
 	private $_skladniki;
@@ -14,8 +17,11 @@ class DanieMenu extends Danie
 	{
 		parent::__construct($nazwa, $cena, $id);
 	}
+	/*
+	* generuj kod HTML
+	*/
 
-	public function generujKod(){
+	public function generujKod($symbol){
 		//
 	}
 }

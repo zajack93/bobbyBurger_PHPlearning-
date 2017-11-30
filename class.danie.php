@@ -20,7 +20,7 @@ abstract class Danie {
 		$this->_cena = $cena;
 		$this->_id = $id;
 
-		echo "Tworzę instancję obiektu... <br>";
+		// echo "Tworzę instancję obiektu... <br>";
 	}
 	/*
 	* Destruktor - nie przyjmuje parametrów, do zniszczenia obiektu, bardzo sporadycznie używany bo wywołanie konstruktora kończy się wraz z działaniem skryptu
@@ -29,13 +29,13 @@ abstract class Danie {
 	public function __destruct()
 	{
 
-		echo "Niszczę instancję obiektu stworzoną w konstruktorze... <br>";
+		// echo "Niszczę instancję obiektu stworzoną w konstruktorze... <br>";
 	}
-
-	abstract function generujKod(); 
-	/*
-	* wymusza deifinicjee funkcje generujKod w każdej nieabstrakcyjnej klasie pochodnej klasy Danie
-	**/ 
+		/*
+		* abstrakcyjna metoda wymusza deifinicjee funkcji generujKod w każdej nieabstrakcyjnej klasie pochodnej klasy Danie
+		**/
+	abstract function generujKod($symbol); 
+	 
 
 	/*
 	* pobiera i Zwraca prywatna wlasciwosc _nazwa
@@ -51,13 +51,13 @@ abstract class Danie {
 
 	/*zwraca prywatna wartosc cena*/
 
-	public function getCena() {
+	public function getCenaJedn() {
 		return $this->_cena;
 	} 
 
 	/*ustawia prywatna wartosc cena*/
 	
-	public function setCena($cena) {
+	public function setCenaJedn($cena) {
 		$this->_cena = $cena;
 	}
 
