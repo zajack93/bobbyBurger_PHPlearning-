@@ -44,7 +44,7 @@ echo "Koszt transportu wynosi {$biezaceZamowienie->obliczTransport()} zł <br>";
 </head>
 <body>
 	<h1> Złóż zamówienie </h1>
-	<form method="get" action="index.php">
+	<form method="post" action="index.php">
 		<table>
 			<tr>
 				<th>Danie </th>

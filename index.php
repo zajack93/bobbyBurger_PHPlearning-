@@ -17,18 +17,38 @@ echo "</pre>";
 
 $zamowienie = new Zamowienie();
 
-if ($_GET['zamowienie'] == 'Wyslij') {
-	$pozycje = $_GET['pozycja'];
+try {
+
+	$baza = new Baza();
+
+	if ($_POST['zamowienie'] == 'Wyslij') {
+	$pozycje = $_POST['pozycja'];
 	if (is_array($pozycje)) {
 		foreach ($pozycje as $id => $liczbaPorcji) {
 			if ($liczbaPorcji > 0) {
-				$pozycja = Baza::pozycjaZamowienia($id, $liczbaPorcji);
+				$pozycja = $baza->pozycjaZamowienia($id, $liczbaPorcji);
 				$zamowienie->dodajPozycje($pozycja);
-				$zamowienie->generujKod($pozycja);
+				$zamowienie->generujKod();
 			} 
 		}
 	}
+
+	$baza->zarejestrujZamowienie($zamowienie);
 }
+
+
+	//throw new Exception("Ups, awaria!", 1);  //wyjątek
+	
+} catch (WyjatekBazy $e) {
+	echo $e->getKomunikat();
+} catch (Exception $e) {
+
+	echo "Zgłoszono wyjątek o treści: {$e->getMessage()}<br>";
+	echo "(wiersz: {E->getLine()}, plik: {$e->getFile()}<br>";
+} 
+
+
+
 
 
 define('APLIKACJA', 'BobbyBurger');
@@ -142,10 +162,10 @@ switch ($liczbaRazem) {
 
 echo Narzedzia::formatujKwote($koszt), " za zamowienie ";
 
-	$kosztTransportu = $odleglosc * $cenaKm;
+	// $kosztTransportu = $odleglosc * $cenaKm;
 
 //wyświetlanie w panelu użytkownika informacji o promocji na transport, w zaleznosci od wybranych produktow
-if ($cenaKm > 0 ){
+if ($zamowienie->getCenaKm()> 0 ){
 
 	$infoPromocja = "Niestety nie skorzystałeś z promocji transport za darmo - sorry :( "; 
 }
@@ -188,8 +208,12 @@ else {
 			echo $zamowienieKod;
 			echo Narzedzia::stworzWiersz("cheatMonday - BBurger", 27, 1);
 
-			echo Narzedzia::stworzWiersz("transport", $kosztTransportu, "-");
-			echo Narzedzia::stworzWiersz("rabat", (-1 * $kosztBrutto * $rabat), "-");
+			
+			echo Narzedzia::stworzWiersz("transport", $zamowienie->getAdresDostawy(), "-");
+			// echo Narzedzia::stworzWiersz("transport", $kosztTransportu, "-");
+			echo Narzedzia::stworzWiersz("rabat", $zamowienie->getRabat(), "-");
+
+			//echo Narzedzia::stworzWiersz("rabat", (-1 * $kosztBrutto * $rabat), "-");
 			echo Narzedzia::stworzWiersz("Do zapłaty: ", $koszt, "-");
 
 		 ?>

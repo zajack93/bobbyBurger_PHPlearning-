@@ -23,12 +23,11 @@ class PozycjaZamowienia extends Danie
 	*
 	*/
 
-	public function generujKod($symbol) {
+	public function generujKod() {
 		$kod = Narzedzia::stworzWiersz(
 			$this->getNazwa(), 
 			$this->getCenaJedn(),
 			$this->getLiczba(),
-			$symbol
 
 			);
 		return $kod;
@@ -41,7 +40,7 @@ class PozycjaZamowienia extends Danie
 	* oblicza cenę
 	*/
 
-	public function getCena() {
+	public function getCenaJedn() {
 		return $this->_cena * $this->_liczba;
 
 		//return $this->_cena * $this->_liczba; dla protected _cena w klasie Danie 

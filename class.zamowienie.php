@@ -48,27 +48,66 @@ class Zamowienie {
 
 	}
 
+	public function getAdresDostawy() {
+		return $this->$adresDostawy;
+	}
+
 	/*
-	* Ustawia prywatna wlasciwosc _rabat
+	*Ustawia wcześniej powyzej zwrócona przez get właściwość adres dostawy
+	* @param type 
 	*/
-	public function setRabat($rabat){
-		$this->_rabat = $rabat;
+
+	public function setAdresDostawy($adresDostawy) {
+		$this->$adresDostawy = $adresDostawy;
+
+	}
+
+	public function getOdleglosc() {
+		return $this->$odleglosc;
+	}
+
+	/*
+	*Ustawia wcześniej powyzej e zwrócona przez get właściwość odlegosc
+	* @param type 
+	*/
+
+	public function setOdleglosc($odleglosc) {
+		$this->$odleglosc = $odleglosc;
+
+	}
+
+
+	/*
+	* zwraca prywatna wlasciwosc _rabat
+	*/
+	public function getRabat() {
+		return $this->_rabat;
 	}
 
 	/*
 	* Ustawia prywatna wlasciwosc _rabat
 	*/
+
+	public function setRabat($rabat){
+		$this->_rabat = $rabat;
+	}
+
+	public function getCenaKm() {
+		return $this->_cenaKm;
+	}
+
+	
 	public function setCenaKm($cenaKm){
 		$this->_cenaKm  = $cenaKm;
 	}
 
 
 	/*
-	* zwraca prywatna wlasciwosc _property
+	* zwraca prywatna wlasciwosc 
 	* @return Danie
 	*/
 
-	public function pobierzPozycja($index) {
+	public function getPozycje($index) {
 		return $this->_pozycje[$index];
 	}
 	/*
@@ -103,7 +142,7 @@ class Zamowienie {
 		if (!$brutto) {
 			$suma *=  (1 - $this->_rabat);
 		}
-		return suma;
+		return $suma;
 	}
 
 	/*
@@ -132,13 +171,13 @@ class Zamowienie {
 	// generuje kod html zamowienia
 	// *********
 
-	public function generujKod($pozycja) {
+	public function generujKod() {
 		
 		$zamowienieKod = '';
 
 
 		foreach ($this->_pozycje as $pozycja) {
-			$zamowienieKod .= $pozycja->generujKod(6,'pln');
+			$zamowienieKod .= $pozycja->generujKod();
 				
 			}
 			//transport

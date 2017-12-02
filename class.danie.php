@@ -34,7 +34,7 @@ abstract class Danie {
 		/*
 		* abstrakcyjna metoda wymusza deifinicjee funkcji generujKod w każdej nieabstrakcyjnej klasie pochodnej klasy Danie
 		**/
-	abstract function generujKod($symbol); 
+	abstract function generujKod(); 
 	 
 
 	/*

@@ -6,7 +6,7 @@
 */
 interface MozeWyswietlac {
 
-	public function generujKod($symbol);
+	public function generujKod();
 
  }
 

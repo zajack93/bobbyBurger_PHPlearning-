@@ -21,7 +21,7 @@ class DanieMenu extends Danie implements MozeWyswietlac
 	* generuj kod HTML
 	*/
 
-	public function generujKod($symbol){
+	public function generujKod(){
 		//
 	}
 }
